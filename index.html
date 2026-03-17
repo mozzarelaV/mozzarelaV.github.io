@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>컴퓨터 보안 클래스</title>
+    <style>
+        /* 기본 스타일 초기화 및 모바일 최적화 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        
+        /* 상단 네비게이션 헤더 */
+        header {
+            background-color: #2b6cb0;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header h1 {
+            color: white;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        /* 공통 섹션 스타일 */
+        section {
+            padding: 40px 20px;
+            background-color: white;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* 1. 컴퓨터 보안 소개 섹션 */
+        #intro p {
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+
+        /* 2. 내 수업 정보 섹션 */
+        .class-list {
+            list-style-type: none;
+        }
+        .class-list li {
+            background: #edf2f7;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        /* 3. 갤러리 섹션 (모바일 2단 그리드) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .gallery-item {
+            background-color: #cbd5e0;
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-size: 0.8rem;
+        }
+
+        /* 4. 연락처 섹션 */
+        .contact-info {
+            background-color: #ebf8ff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .contact-info p {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #2b6cb0;
+        }
+
+        /* 하단 푸터 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #a0aec0;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Security Class</h1>
+    </header>
+
+    <main>
+        <section id="intro">
+            <h2>컴퓨터 보안 소개</h2>
+            <p>
+                현대 정보화 사회에서 컴퓨터 보안은 선택이 아닌 필수입니다. 
+                해킹, 악성코드, 데이터 유출 등 다양한 사이버 위협으로부터 
+                개인과 조직의 소중한 정보를 안전하게 지키는 핵심 원리와 실무 기술을 다룹니다.
+            </p>
+        </section>
+
+        <section id="class-info">
+            <h2>내 수업 정보</h2>
+            <ul class="class-list">
+                <li><strong>1주차:</strong> 정보 보안의 기초 및 암호화 원리</li>
+                <li><strong>2주차:</strong> 네트워크 보안 및 방화벽 구축</li>
+                <li><strong>3주차:</strong> 웹 애플리케이션 취약점 분석</li>
+                <li><strong>4주차:</strong> 모의 해킹 및 침해 사고 대응 실무</li>
+            </ul>
+        </section>
+
+        <section id="gallery">
+            <h2>수업 갤러리</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">이미지 1</div>
+                <div class="gallery-item">이미지 2</div>
+                <div class="gallery-item">이미지 3</div>
+                <div class="gallery-item">이미지 4</div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>연락처</h2>
+            <div class="contact-info">
+                <p>📞 전화: 010-1234-5678</p>
+                <p>📧 이메일: security@example.com</p>
+                <p>🏢 장소: 서울특별시 강남구 보안빌딩 4층</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 컴퓨터 보안 클래스. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
