@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Animation 학습자료 - 이동과 변화</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Malgun Gothic", sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+      line-height: 1.7;
+    }
+    header {
+      background: linear-gradient(135deg, #111827, #1d4ed8);
+      color: white;
+      padding: 48px 20px;
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; }
+    header h1 { margin: 0 0 12px; font-size: clamp(30px, 5vw, 48px); }
+    header p { margin: 0; opacity: .92; font-size: 17px; }
+    main { padding: 32px 20px 64px; }
+    section {
+      background: white;
+      border-radius: 18px;
+      padding: 28px;
+      margin: 0 0 24px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, .07);
+    }
+    h2 { margin-top: 0; color: #111827; }
+    h3 { color: #1d4ed8; margin-bottom: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px;
+      background: #fafafa;
+    }
+    code.inline {
+      background: #eef2ff;
+      color: #3730a3;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    pre {
+      margin: 12px 0 0;
+      background: #0b1020;
+      color: #e5e7eb;
+      padding: 18px;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .keyword { color: #93c5fd; }
+    .note {
+      border-left: 5px solid #2563eb;
+      background: #eff6ff;
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin-top: 14px;
+    }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+    th, td { border: 1px solid #e5e7eb; padding: 11px 12px; text-align: left; }
+    th { background: #f3f4f6; }
+    .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 16px; }
+    .step { border-radius: 12px; padding: 14px; text-align: center; color: white; font-weight: 700; min-height: 88px; }
+    .s0 { background: #dc2626; }
+    .s25 { background: #16a34a; }
+    .s50 { background: #2563eb; }
+    .s75 { background: #06b6d4; }
+    .s100 { background: #f59e0b; color: #111827; }
+    .demo-area {
+      position: relative;
+      height: 320px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 14px;
+      background:
+        linear-gradient(90deg, rgba(148,163,184,.15) 1px, transparent 1px) 0 0/50px 50px,
+        linear-gradient(rgba(148,163,184,.15) 1px, transparent 1px) 0 0/50px 50px,
+        #f8fafc;
+      overflow: hidden;
+    }
+    .path-box {
+      position: absolute;
+      width: 100px;
+      height: 50px;
+      left: 20px;
+      top: 20px;
+      border-radius: 8px;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .demo1 { animation: demoColor 5s infinite 1s; }
+    @keyframes demoColor {
+      0% { background: red; left: 20px; top: 20px; }
+      25% { background: green; left: 220px; top: 20px; }
+      50% { background: blue; left: 220px; top: 220px; }
+      75% { background: cyan; left: 20px; top: 220px; }
+      100% { background: orange; left: 20px; top: 20px; }
+    }
+    .demo2 { animation: demoBorder 5s infinite; }
+    @keyframes demoBorder {
+      0% { border: 2px dotted red; left: 20px; top: 20px; }
+      25% { border: 5px dashed green; left: 220px; top: 20px; }
+      50% { border: 15px groove blue; left: 220px; top: 220px; }
+      75% { border: 5px inset cyan; left: 20px; top: 220px; }
+      100% { border: 2px solid orange; left: 20px; top: 20px; }
+    }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 0; }
+    button {
+      border: 0; border-radius: 10px; padding: 10px 14px; cursor: pointer;
+      background: #111827; color: white; font-weight: 700;
+    }
+    button.secondary { background: #e5e7eb; color: #111827; }
+    footer { text-align: center; color: #6b7280; padding: 24px; }
+    .small { color: #6b7280; font-size: 14px; }
+    @media (max-width: 760px) {
+      .timeline { grid-template-columns: 1fr; }
+      .demo-area { height: 360px; }
+      .path-box { left: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>CSS Animation 학습자료</h1>
+      <p>예제 7-12와 7-13을 합쳐서 배우는 「이동 + 색상 + 테두리 변화」 애니메이션</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>1. 먼저 알아야 할 핵심</h2>
+      <p>CSS Animation은 시간이 흐르면서 HTML 요소의 CSS 속성을 자동으로 변화시키는 기능입니다.</p>
+      <div class="note">
+        <strong>핵심 공식:</strong> <code class="inline">animation-name</code>으로 어떤 애니메이션인지 정하고,
+        <code class="inline">animation-duration</code>으로 시간을 정한 뒤,
+        <code class="inline">@keyframes</code>에서 실제 변화를 설계합니다.
+      </div>
+      <table>
+        <tr><th>속성</th><th>쉬운 뜻</th><th>예제</th></tr>
+        <tr><td>animation-name</td><td>실행할 애니메이션의 이름</td><td>color</td></tr>
+        <tr><td>animation-duration</td><td>애니메이션 한 바퀴에 걸리는 시간</td><td>5s</td></tr>
+        <tr><td>animation-iteration-count</td><td>반복 횟수</td><td>infinite</td></tr>
+        <tr><td>animation-delay</td><td>시작 전 기다리는 시간</td><td>1s</td></tr>
+        <tr><td>@keyframes</td><td>시간별 상태를 직접 설계하는 영역</td><td>0%, 25%, 50%...</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>2. 두 예제의 관계</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>예제 7-13: Color Animation</h3>
+          <p><strong>이동하면서 배경색이 바뀌는 애니메이션</strong>입니다.</p>
+          <p>이동 속성: <code class="inline">left</code>, <code class="inline">top</code></p>
+          <p>색상 속성: <code class="inline">background-color</code></p>
+        </div>
+        <div class="card">
+          <h3>예제 7-12: Border Animation</h3>
+          <p><strong>이동하면서 테두리 모양과 두께가 바뀌는 애니메이션</strong>입니다.</p>
+          <p>이동 속성: <code class="inline">left</code>, <code class="inline">top</code></p>
+          <p>테두리 속성: <code class="inline">border</code></p>
+        </div>
+      </div>
+      <div class="note">
+        <strong>중요:</strong> 두 예제 모두 <code class="inline">@keyframes color</code>라는 이름을 사용하지만,
+        실제로 무엇을 바꿀지는 keyframes 안에서 결정합니다. 이름이 같아도 속성 내용은 달라질 수 있습니다.
+      </div>
+    </section>
+
+    <section>
+      <h2>3. 예제 7-13 분석 — 배경색 + 이동</h2>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;예제7-13 이동 Animation&lt;/title&gt;
+  &lt;style&gt;
+    div {
+      width: 100px;
+      height: 50px;
+      background: cyan;
+      position: relative;
+      animation-name: color;
+      animation-duration: 5s;
+      animation-iteration-count: infinite;
+      animation-delay: 1s;
+    }
+
+    @keyframes color {
+      0%   { background-color: red;    left: 0px;   top: 0px; }
+      25%  { background-color: green;  left: 200px; top: 0px; }
+      50%  { background-color: blue;   left: 200px; top: 200px; }
+      75%  { background-color: cyan;   left: 0px;   top: 200px; }
+      100% { background-color: orange; left: 0px;   top: 0px; }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;h4 style="color: gray; margin:0;">iteration Animation&lt;/h4&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <h3>시간별로 해석하기</h3>
+      <div class="timeline">
+        <div class="step s0">0%<br>빨강<br>(0, 0)</div>
+        <div class="step s25">25%<br>초록<br>(200, 0)</div>
+        <div class="step s50">50%<br>파랑<br>(200, 200)</div>
+        <div class="step s75">75%<br>하늘색<br>(0, 200)</div>
+        <div class="step s100">100%<br>주황<br>(0, 0)</div>
+      </div>
+      <p class="small">5초 애니메이션이므로 약 1.25초마다 다음 keyframe 지점에 도달합니다. infinite 때문에 계속 반복됩니다.</p>
+    </section>
+
+    <section>
+      <h2>4. 예제 7-12 분석 — 테두리 + 이동</h2>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;예제7-12 이동 Animation&lt;/title&gt;
+  &lt;style&gt;
+    div {
+      width: 100px;
+      height: 50px;
+      background: cyan;
+      position: relative;
+      animation-name: color;
+      animation-duration: 5s;
+    }
+
+    @keyframes color {
+      0%   { border: 2px dotted red;    left: 0px;   top: 0px; }
+      25%  { border: 5px dashed green;  left: 200px; top: 0px; }
+      50%  { border: 15px groove blue;  left: 200px; top: 200px; }
+      75%  { border: 5px inset cyan;    left: 0px;   top: 200px; }
+      100% { border: 2px solid orange;  left: 0px;   top: 0px; }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;h4 style="color: gray; margin:0;">translation Animation&lt;/h4&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <h3>무엇이 달라졌는가?</h3>
+      <table>
+        <tr><th>진행률</th><th>border</th><th>left</th><th>top</th></tr>
+        <tr><td>0%</td><td>2px dotted red</td><td>0px</td><td>0px</td></tr>
+        <tr><td>25%</td><td>5px dashed green</td><td>200px</td><td>0px</td></tr>
+        <tr><td>50%</td><td>15px groove blue</td><td>200px</td><td>200px</td></tr>
+        <tr><td>75%</td><td>5px inset cyan</td><td>0px</td><td>200px</td></tr>
+        <tr><td>100%</td><td>2px solid orange</td><td>0px</td><td>0px</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>5. 실제 애니메이션으로 확인하기</h2>
+      <p>아래 두 박스는 원본 코드를 학습용으로 보기 쉽게 재현한 것입니다.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>7-13: 색상 변화</h3>
+          <div class="demo-area" id="demoArea1">
+            <div class="path-box demo1" id="box1">Color</div>
+          </div>
+          <div class="btn-row">
+            <button onclick="restart('box1','demo1')">애니메이션 다시 시작</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>7-12: 테두리 변화</h3>
+          <div class="demo-area" id="demoArea2">
+            <div class="path-box demo2" id="box2">Border</div>
+          </div>
+          <div class="btn-row">
+            <button onclick="restart('box2','demo2')">애니메이션 다시 시작</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>6. 시험·실습에서 기억할 포인트</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>① position: relative</h3>
+          <p><code class="inline">left</code>와 <code class="inline">top</code>을 사용해 요소를 이동시키려면 위치 관련 설정이 필요합니다.</p>
+        </div>
+        <div class="card">
+          <h3>② 퍼센트는 시간</h3>
+          <p><code class="inline">0%</code>는 시작, <code class="inline">50%</code>는 중간, <code class="inline">100%</code>는 끝입니다.</p>
+        </div>
+        <div class="card">
+          <h3>③ 여러 CSS 속성을 동시에 변경</h3>
+          <p>하나의 keyframe에서 <code class="inline">background-color</code>, <code class="inline">border</code>, <code class="inline">left</code>, <code class="inline">top</code> 등을 함께 바꿀 수 있습니다.</p>
+        </div>
+        <div class="card">
+          <h3>④ infinite</h3>
+          <p>애니메이션을 무한 반복합니다. 한 번만 실행하려면 이 속성을 넣지 않거나 반복 횟수를 원하는 숫자로 설정합니다.</p>
+        </div>
+      </div>
+      <div class="note">
+        <strong>학습 순서 추천:</strong> 먼저 <code class="inline">left/top</code>으로 이동을 이해하고,
+        그다음 <code class="inline">background-color</code>와 <code class="inline">border</code>처럼 다른 속성을 keyframes에 추가해 보세요.
+      </div>
+    </section>
+
+    <section>
+      <h2>7. 직접 수정해 볼 문제</h2>
+      <ol>
+        <li><code class="inline">25%</code> 위치를 <code class="inline">left: 300px</code>으로 바꿔 보세요.</li>
+        <li><code class="inline">50%</code>의 색상을 <code class="inline">purple</code>로 바꿔 보세요.</li>
+        <li><code class="inline">animation-duration: 5s</code>를 <code class="inline">10s</code>로 바꿔 속도 차이를 관찰해 보세요.</li>
+        <li><code class="inline">animation-iteration-count: 3</code>을 적용해 3번만 반복되도록 만들어 보세요.</li>
+        <li>예제 7-12에 <code class="inline">background-color</code>를 추가해 테두리와 배경이 동시에 변하도록 만들어 보세요.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    CSS Animation 학습자료 · 예제 7-12 + 예제 7-13 통합본
+  </footer>
+
+  <script>
+    function restart(id, cls) {
+      const el = document.getElementById(id);
+      el.classList.remove(cls);
+      void el.offsetWidth;
+      el.classList.add(cls);
+    }
+  </script>
+</body>
+</html>
