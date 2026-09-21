@@ -388,14 +388,33 @@
       border-radius: 16px;
       overflow: hidden;
       position: relative;
-      background:
-        linear-gradient(145deg, rgba(139,124,255,.26), transparent 50%),
-        radial-gradient(circle at 65% 35%, rgba(255,255,255,.09), transparent 20%),
-        linear-gradient(180deg, #26213c, #151821);
+      background: #f4f4f1;
+    }
+
+    .featured-art img {
+      width: 100%;
+      height: 100%;
+      min-height: 370px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .featured-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,.05) 0%,
+        transparent 48%,
+        rgba(0,0,0,.38) 100%
+      );
+      pointer-events: none;
     }
 
     .featured-art .art-label {
       position: absolute;
+      z-index: 2;
       top: 18px;
       left: 18px;
       padding: 7px 10px;
@@ -408,6 +427,7 @@
 
     .featured-art .art-title {
       position: absolute;
+      z-index: 2;
       left: 24px;
       right: 24px;
       bottom: 24px;
@@ -1033,23 +1053,27 @@
 
         <article class="featured">
           <div class="featured-art">
+            <img src="assets/flower.png"
+                 alt="들판의 꽃 작품 대표 이미지" />
             <span class="art-label">FEATURED</span>
-            <div class="art-title">작품 제목</div>
+            <div class="art-title">들판의 꽃</div>
           </div>
 
           <div class="featured-info">
-            <span class="badge">COMPLETED</span>
-            <h3>대표 작품의 제목을<br />여기에 적어주세요.</h3>
+            <span class="badge">ORIGINAL ARTWORK</span>
+            <h3>들판의 꽃</h3>
 
             <p>
-              작품의 핵심 줄거리나 제작 의도를 짧고 인상적으로 소개해 주세요.
-              방문자가 작품을 클릭하기 전에 내용을 이해할 수 있도록 2~4문장 정도가 적당합니다.
+              넓게 펼쳐진 들판 한가운데 피어난 꽃을 통해,
+              자연의 생명력과 자유로운 감성을 표현한 작품입니다.
+              단순하고 거친 선을 사용해 어린아이의 순수한 시선처럼
+              편안하면서도 개성 있는 분위기를 담아냈습니다.
             </p>
 
             <div class="meta">
-              <span>장르 · 판타지</span>
-              <span>형식 · 스크롤 웹툰</span>
-              <span>제작 · 2026</span>
+              <span>주제 · 자연</span>
+              <span>분위기 · 따뜻함</span>
+              <span>형식 · 디지털 드로잉</span>
             </div>
 
             <div>
